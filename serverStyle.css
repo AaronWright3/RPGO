@@ -1,0 +1,121 @@
+			html {
+				margin: 0;
+			}
+			body {
+				margin: 0;
+				background: #222;
+				font-family: monospace;
+				color: #ccc;
+				line-height: 2rem;
+			}
+			button, input {
+				border: 0 none;
+				background: #333;
+				height: 2rem;
+				color: #ccc;
+				vertical-align: middle;
+			}
+			input {
+				border: 0 none;
+				padding: 0 1rem;
+				background: #222;
+				height: 3rem;
+			}
+			.controls {
+				background: #222;
+				height: 3rem;
+				line-height: 3rem;
+				padding: 0 1rem;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				display: flex;
+			}
+			.title {
+				display: inline-block;
+				margin-right: 2rem;
+				flex: 1 1 0;
+				padding: 0rem 0.5rem;
+			}
+			.buttons {
+				width: 50%;
+				display: inline-block;
+				padding: 0.5rem 0;
+				text-align: right;
+			}
+			.consoleinput {
+				display: flex;
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				height: 3rem;
+			}
+			.consoleinput button {
+				height: 3rem;
+			}
+			#console {
+				background: #000;
+				position: absolute;
+				top: 0;
+				bottom: 3rem;
+				left: 0;
+				right: 0;
+				line-height: 1rem;
+			}
+			#textinput {
+				display: flex;
+				flex: 1 1 0;
+			}
+			#send {
+				width: 10%;
+				min-width: 100px;
+			}
+			
+			.section {
+				position: absolute;
+			}
+			.top {
+				top: 0;
+				bottom: 50%;
+				left: 0;
+				right: 0;
+			}
+			.bottom {
+				top: 50%;
+				bottom: 0;
+				left: 0;
+				right: 0;
+			}
+			.left {
+				top: 3rem;
+				bottom: 0;
+				left: 0;
+				right: 50%;
+			}
+			.right {
+				top: 3rem;
+				bottom: 0;
+				left: 50%;
+				right: 0;
+			}
+			.padded {
+				padding: 0.5rem 1rem;
+			}
+			.darker {
+				background: #181818;
+			}
+			.chatname, .messagebody {
+				display: inline-block;
+			}
+			.message {
+				line-height: 1.5rem;
+				padding: 0 0.5rem;
+			}
+			.messagebody {
+				padding: 0 0.5rem;
+			}
+			form {
+				margin: 0;
+			}

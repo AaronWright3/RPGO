@@ -1,6 +1,6 @@
 var server = window.opener;
 var game = {ID: null};
-var clientName = ("000000" + Math.floor(Math.random()*16777215).toString(16)).substr(-6);
+var clientName = null;
 
 window.addEventListener("message", receiveMessage, false);
 
@@ -32,6 +32,8 @@ function receiveMessage(event) {
 			console.log("SERVER: joined game " + m.data);
 			loadGame(m.data);
 			document.getElementById("userinfo").innerHTML = "joined as " + "<div style='display: inline-block; color: #" + clientName + "'>" + clientName + "</div>";
+			document.getElementById('login').remove();
+			document.getElementById('interface').style = "filter: none !important";
 		} else if (m.type == "gameData") {
 			game = m.data;
 			document.getElementById("chat").innerHTML = game.chat.join("<br>");
@@ -65,6 +67,8 @@ function updateGame(info) { //updates game info across all clients and updates s
 }
 
 function init() {
+	clientName = document.getElementById('nameinput').value;
+	document.getElementById('nameinput').value = "";
 	sm("status", "init");
 }
 

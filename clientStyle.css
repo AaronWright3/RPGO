@@ -14,12 +14,24 @@ button, input {
 	height: 2rem;
 	color: #333;
 	vertical-align: middle;
+	max-width: 100%;
+	min-width: 2rem;
+	font-family: monospace;
+	color: #222;
 }
 input {
 	border: 0 none;
 	padding: 0 1rem;
 	background: #fff;
 	height: 3rem;
+}
+#interface {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	filter: blur(16px);
 }
 .controls {
 	background: #fff;
@@ -134,4 +146,35 @@ input {
 }
 form {
 	margin: 0;
+}
+
+#login {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background: rgba(0,0,0,0.7);
+	text-align: center;
+}
+
+.popup {
+    position: absolute;
+    width: 10rem;
+    height: 10rem;
+    margin: auto auto;
+    display: inline-block;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #aaa;
+    border-radius: 0.5rem;
+}
+.popuptitle {
+	font-size: 1rem;
+	margin-bottom: 0.5rem;
+}
+#namebutton {
+	margin: 0.5rem;
 }

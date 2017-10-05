@@ -5,33 +5,43 @@
 		<link rel="stylesheet" type="text/css" href="clientStyle.css">
 		<script type="text/javascript" src="./clientCore.js"></script>
 	</head>
-	<body onload="init()">
-		<div class="controls">
-			<div class="title"></div>
-			<div class="buttons"></div>
+	<body>
+		<div id="interface">
+			<div class="controls">
+				<div class="title"></div>
+				<div class="buttons"></div>
+			</div>
+			<div class="main">
+				<div class="leftbar">
+					<div class="section top padded" id="userinfo"></div>
+					<div class="section bottom">
+						<div id="chat"></div>
+						<div class="chatinput">
+							<input id="textinput" onkeydown = "if (event.keyCode == 13) document.getElementById('send').click()" type="text"></input><button type="button" id="send" onclick="sendMessage()">Send</button>
+						</div>
+					</div>
+				</div>
+				<div class="horizontalcenter">
+					<div id="event"></div>
+					<div class="timeline"></div>
+				</div>
+				<div class="rightbar">
+					<div class="section top padded">
+						<div id="clientlist"></div>
+					</div>
+					<div class="section bottom padded">
+						<div class="gameinfo">
+							<div id="gametitle"></div>
+							<div id="gamedescription"></div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="main">
-			<div class="leftbar">
-				<div class="section top padded" id="userinfo"></div>
-				<div class="section bottom">
-					<div id="chat"></div>
-					<div class="chatinput">
-						<input id="textinput" onkeydown = "if (event.keyCode == 13) document.getElementById('send').click()" type="text"></input><button type="button" id="send" onclick="sendMessage()">Send</button>
-					</div>
-				</div>
-			</div>
-			<div class="horizontalcenter">
-				<div id="event"></div>
-				<div class="timeline"></div>
-			</div>
-			<div class="rightbar">
-				<div class="section top"></div>
-				<div class="section bottom padded">
-					<div class="gameinfo">
-						<div id="gametitle"></div>
-						<div id="gamedescription"></div>
-					</div>
-				</div>
+		<div id="login">
+			<div class="popup padded">
+				<div class="popuptitle">Set Name</div>
+				<input id="nameinput" onkeydown = "if (event.keyCode == 13) document.getElementById('namebutton').click()"></input><button id="namebutton" onclick="init()">join</button>
 			</div>
 		</div>
 	</body>

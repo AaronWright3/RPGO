@@ -17,7 +17,7 @@
 					<div class="section bottom">
 						<div id="chat"></div>
 						<div class="chatinput">
-							<input id="textinput" onkeydown = "if (event.keyCode == 13) document.getElementById('send').click()" type="text"></input><button type="button" id="send" onclick="sendMessage()">Send</button>
+							<input id="textinput"  autocomplete="off" onkeydown = "if (event.keyCode == 13) document.getElementById('send').click()" type="text"></input><button type="button" id="send" onclick="sendChat()">Send</button>
 						</div>
 					</div>
 				</div>
@@ -38,10 +38,136 @@
 				</div>
 			</div>
 		</div>
-		<div id="login">
+		<div id="createCharacter" class="popupBG" style="display: none">
 			<div class="popup padded">
-				<div class="popuptitle">Set Name</div>
-				<input id="nameinput" onkeydown = "if (event.keyCode == 13) document.getElementById('namebutton').click()"></input><button id="namebutton" onclick="init()">join</button>
+				<div class="popupinner">
+					<div class="field namefield">
+						<div class="fieldtitle"><label>name</label></div><div class="fieldcontent">
+							<input id="nameinput"></input>
+						</div><div class="fieldinfo">
+						</div>
+					</div>
+					<div class="field racefield">
+						<div class="fieldtitle"><label>race</label></div><div class="fieldcontent">
+							<select name="race" id="raceinput">
+								<option value="human">Human</option>
+								<option value="porc">Porc</option>
+								<option value="watermelon">Watermelon</option>
+								<option value="car">Car</option>
+							</select> 
+						</div><div class="fieldinfo">
+						</div>
+					</div>
+					
+					<div class="field agefield">
+						<div class="fieldtitle"><label>age</label></div><div class="fieldcontent">
+							<input type="range" name="age" id="ageinput" min="0" max="4"></input>
+						</div><div class="fieldinfo">
+						</div>
+					</div>
+					
+					<div class="field colorfield">
+						<div class="fieldtitle"><label>color</label></div><div class="fieldcontent">
+							<input type="color" id="colorinput" name="namecolor" onclick = "document.getElementById('colorinput2').value = this.value"></input><input id="colorinput2" name="namecolor2" onLoad="this.value = document.getElementById('colorinput').value" onkeydown = "document.getElementById('colorinput').value = this.value"></input>
+						</div><div class="fieldinfo">
+						</div>
+					</div>
+					
+					<div class="field genderfield">
+						<div class="fieldtitle"><label>gender</label></div><div class="fieldcontent">
+							<div class="fieldinput radio"><input type="radio" name="gender" value="he" id="genderhe"><label="genderhe">he</label>
+							</div><div class="fieldinput radio"><input type="radio" name="gender" value="she" id="gendershe"><label="gendershe">she</label>
+							</div><div class="fieldinput radio"><input type="radio" name="gender" value="they" id="genderthey" checked><label="genderthey">they</label>
+							</div></div><div class="fieldinfo">
+						</div>
+					</div>
+					
+					<div class="field orientationfield">
+						<div class="fieldtitle"><label>interest</label></div><div class="fieldcontent">
+							<div class="fieldinput radio">
+								<input type="radio" name="orientation" id="orientationhe" value="he"><label for="orientationhe">he</label>
+							</div><div class="fieldinput radio">
+								<input type="radio" name="orientation" id="orientationshe" value="she"><label for="orientationshe">she</label>
+							</div><div class="fieldinput radio">
+								<input type="radio" name="orientation" id="orientationboth" value="both" checked><label for="orientationboth">both</label>
+							</div><div class="fieldinput radio"><input type="radio" name="orientation" id="orientationnone" value="none"><label for="orientationnone">none</label>
+							</div>
+						</div><div class="fieldinfo">
+						</div>
+					</div>
+					
+					<div class="field alignmentfield">
+						<div class="fieldtitle"><label>alignment</label></div><div class="fieldcontent">
+							<div class="inlineinput">
+								<select name="aligninput1" id="aligninput1">
+									<option value="1">Lawful</option>
+									<option value="0" selected>Neutral</option>
+									<option value="-1">Chaotic</option>
+								</select> 
+							</div><div class="inlineinput">
+								<select name="aligninput2" id="aligninput2">
+									<option value="1">Good</option>
+									<option value="0" selected>Neutral</option>
+									<option value="-1">Evil</option>
+								</select> 
+							</div>
+						</div><div class="fieldinfo">
+						</div>
+					</div>
+					
+				</div>
+				<div class="submitfield">
+					<div class="field joinfield centered">
+						<button id="characterbutton" onclick="sendCharacter()">join</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="createGame" class="popupBG" style="display: none">
+			<div class="popup gamecreate padded">
+				<div class="popupinner">
+					<div class="field gamenamefield">
+						<div class="fieldtitle"><label>game name</label></div><div class="fieldcontent">
+							<input id="gamenameinput"></input>
+						</div><div class="fieldinfo">
+						</div>
+					</div>
+				</div>
+				<div class="submitfield">
+					<div class="field joinfield centered">
+						<button id="gamebutton" class="submitbutton" onclick="createGame()">create game</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="browser" class="popupBG" style="display: none">
+			<div class="popup gamebrowser padded">
+				<div class="popupinner">
+					<div class="fieldtitle">Game List</div>
+					<div id="gameList">
+					</div>
+				</div>
+				<div class="submitfield">
+					<div class="field joinfield centered">
+						<button id="creategamebutton" class="submitbutton" onclick="newGame()">create game</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="nickname" class="popupBG">
+			<div class="popup nickname padded">
+				<div class="popupinner">
+					<div class="field nicknamefield">
+						<div class="fieldtitle"><label>nickname</label></div><div class="fieldcontent">
+							<input id="nicknameinput" onkeydown = "if (event.keyCode == 13) document.getElementById('namebutton').click()"></input>
+						</div>
+					</div>
+				</div>
+				<div class="submitfield">
+					<div class="field joinfield centered">
+						<button id="namebutton" class="submitbutton" onclick="init()">join</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</body>

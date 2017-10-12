@@ -20,10 +20,14 @@ button, input {
 	color: #222;
 }
 input {
-	border: 0 none;
-	padding: 0 1rem;
-	background: #fff;
-	height: 3rem;
+    border: 0 none;
+    background: #fff;
+    height: 3rem;
+    margin: 0;
+    vertical-align: middle;
+    line-height: 3rem;
+    display: inline-block;
+	padding: 0.5rem;
 }
 #interface {
 	position: absolute;
@@ -135,7 +139,7 @@ input {
 	padding: 0.5rem 1rem;
 }
 .chatname, .messagebody {
-	display: inline-block;
+	display: inline;
 }
 .message {
 	line-height: 1.5rem;
@@ -144,11 +148,18 @@ input {
 .messagebody {
 	padding: 0 0.5rem;
 }
+
+.italic {
+	font-style: italic;
+}
 form {
 	margin: 0;
 }
 
-#login {
+.centered {
+	text-align: center !important;
+}
+.popupBG {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -160,21 +171,171 @@ form {
 
 .popup {
     position: absolute;
-    width: 10rem;
-    height: 10rem;
     margin: auto auto;
     display: inline-block;
+    width: 19rem;
+    height: 29rem;
+    overflow: hidden;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
+}
+.popupinner {
+	position: absolute;
+	top: 0;
+	bottom: 4rem;
+	left: 0;
+	right: 0;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0.5rem;
+	overflow-y: auto;
     background: #aaa;
-    border-radius: 0.5rem;
 }
 .popuptitle {
 	font-size: 1rem;
 	margin-bottom: 0.5rem;
 }
-#namebutton {
-	margin: 0.5rem;
+.submitbutton {
+	height: 3rem;
+	margin: 0;
+	padding: 0 1rem;
+}
+
+.field {
+    width: 19rem;
+    display: block;
+    text-align: left;
+    margin: 0.5rem auto;
+}
+
+.fieldtitle {
+    text-align: right;
+    display: inline-block;
+    box-sizing: border-box;
+    vertical-align: top;
+	line-height: 3rem;
+    box-sizing: border-box;
+}
+.fieldtitle label {
+    background: #333;
+    margin: 0 0.5rem 0 0;
+    display: inline-block;
+    min-width: 6.5rem;
+    text-align: center;
+    color: white;
+    font-family: Arial;
+}
+.fieldcontent {
+    display: inline-block;
+	line-height: 3rem;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.fieldinfo {
+    display: none;
+    width: 30%;
+	line-height: 3rem;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.fieldinput {
+	display: block;
+}
+
+.fieldinput.radio {
+	display: inline-block;
+	width: 3rem;
+	text-align: center;
+	height: 3rem;
+}
+
+.radio input {
+	display: block;
+	margin: 0;
+	height: auto;
+	padding: 0;
+	line-height: 1.5rem;
+	width: 100%;
+}
+.radio label {
+	display: block;
+	height: 1.5rem;
+	line-height: 1.5rem;
+}
+
+.field label {
+	padding: 0 1rem;
+	box-sizing: border-box;
+}
+
+.fieldcontent select {
+    height: 3rem;
+    padding: 0 1rem;
+    background: #fff;
+    border: 0;
+	width: 6rem;
+}
+
+#nameinput, #raceinput, #ageinput, #nicknameinput {
+	width: 12rem;
+}
+
+#colorinput {
+	width: 4rem;
+	margin-right: 0.5rem;
+}
+#colorinput2 {
+	width: 7.5rem;
+}
+
+.inlineinput {
+    display: inline-block;
+    width: 6rem;
+}
+
+.popup .submitfield {
+	position: absolute;
+	top: auto;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 4rem;
+	background: #666;
+}
+
+.popupinner.full {
+	bottom: 0;
+}
+
+#gameList {
+	padding-top: 0.5rem;
+	line-height: 3rem;
+}
+
+#gameList .item{
+	margin-bottom: 0.5rem;
+	display: block;
+	width: 100%;
+	line-height: 2rem;
+}
+
+#gameList .item .gametitle, #gameList .item .options {
+	display: inline-block;
+	box-sizing: border-box;
+	width: 50%;
+}
+
+#gameList .item .gametitle {
+	line-height: 2rem;
+	padding: 0.5rem;
+	padding-left: 1rem;
+}
+
+#gameList .item .options {
+	text-align: right;
+	padding-right: 1rem;
 }

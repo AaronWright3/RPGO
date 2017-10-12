@@ -1,5 +1,7 @@
 var clientList = {}; // object containing clients
-var gameList = {};
+var gameList = { //list of current games
+	publicList: {}, //publically accessible list
+};
 
 function randomHex() {
 	return ("000000" + Math.floor(Math.random()*16777215).toString(16)).substr(-6);
@@ -89,55 +91,54 @@ function receiveMessage(event) { //accepts the message event as parameters and d
 		return privateID;
 	}
 	
-	if (m.type == "init" && m.data == m.nickname) {
+	if (m.type == "init" && m.data == m.nickname) { //when the client joins
 		var newID = addClient();
-		cm("gameList", gameList, newID);
+		cm("gameList", gameList.publicList, newID);
 	}
 	
 	if (clientList[m.ID]) { //if the client is already on the client list
 		clientList[m.ID].lastMessage = m.data.sent; //set its last message date to this one
 		
-		if (m.type == "createGame") {
+		if (m.type == "createGame") { //if the client tries to create a game
 			gameID = createGame(m.data.name, m.data.rules, m.ID);
 			cm("joinGame", gameID, m.ID);
 		}
 		
-		if (m.type == "joinGame" && gameList[m.data]) {
+		if (m.type == "joinGame" && gameList[m.data]) { // if the client wants to join a game
 			cm("joinGame", gameID, m.ID);
 		}
 		
 		if (gameList[m.game]) { //if referenced game actually exists
 			var game = gameList[m.game];
-			if (m.type == "characterData") { //if the client sends the server a status message saying that it wishes to join
-				console.log("characterData");
-					if (game.clientList.indexOf(m.name) == -1) {
-						if ((game.status == "setup" && game.host == m.ID) || game.status == "lobby") { //|| game.status == "lobby") && game.clientList.indexOf(m.name) == -1
-							game.clientList.push(m.name);
-							game.party.characters[m.name] = m.data;
-							clientList[m.ID].location = game.ID;
-							if (game.status = "lobby") {
-								updateGame(game);
-							};
-							if (game.status == "setup") {
-								game.status = "lobby";
-							}
-							cm("gameData", game.getData(), m.ID);
+			if (m.type == "characterData") { //if the client sends a character
+				if (game.clientList.indexOf(m.name) == -1) {
+					if ((game.status == "setup" && game.host == m.ID) || game.status == "lobby") { //if the game is waiting for its host or has a host but hasn't started yet
+						game.clientList.push(m.name);
+						game.party.characters[m.name] = m.data;
+						clientList[m.ID].location = game.ID;
+						if (game.status == "lobby") { //if the game has a host but hasn't started yet
+							updateGame(game);
+						} else if (game.status == "setup") { //if the game is waiting for its host
+							game.status = "lobby";
+							gameList.publicList[game.ID] = game.getData();
 						}
-					} else if (game.status == "running") {
-						cm("error", "game is already in progress", m.ID)
-					} else if (game.clientList.indexOf(m.name) !== -1) {
 						cm("gameData", game.getData(), m.ID);
 					}
+				} else if (game.status == "running") {
+					cm("error", "game is already in progress", m.ID)
+				} else if (game.clientList.indexOf(m.name) !== -1) {
+					cm("gameData", game.getData(), m.ID);
+				}
 			}
 		
-			if (m.type == "chatMessage") { //if it's a chat message
+			if (m.type == "chatMessage") { //if the client sends a chat message
 			var newMessage = "<div class='message'><div class='chatname' style='color: " + game.party.characters[clientList[m.ID].name].color + "'>" + clientList[m.ID].nickname + " (" + game.party.characters[clientList[m.ID].name].name + "):</div><div class='messagebody'>" + m.data + "</div></div>"; //format chat item
 				console.log(+ clientList[m.ID].nickname + " (" + game.party.characters[clientList[m.ID].name].name + "): %c" + m.data, "color: " + game.party.characters[clientList[m.ID].name].color ); //log to console
 				addToChat(game, newMessage);
 			}
 		}
 		
-		if (m.type == "status" && m.data == "close") { //if the client wants to close its connection
+		if (m.type == "status" && m.data == "close") { //if the client closes its connection
 			if (gameList[m.game]) {
 				var game = gameList[m.game]
 				delete game.party.characters[clientList[m.ID].name];
@@ -149,7 +150,7 @@ function receiveMessage(event) { //accepts the message event as parameters and d
 	}
 }
 
-function tellAll() { //sends text message to all clients, for testing purposes mostly
+function tellAll() { //sends text message to all clients, currently broken
 	if (document.getElementById("textinput").value !== "") { //if the input isn't empty
 		var newMessage = "<div class='message' style='background: #000; color: #fff'><div class='chatname'>SERVER:<div class='messagebody'>" + document.getElementById("textinput").value + "</div></div></div>" //format message
 		document.getElementById("textinput").value = ""; //clear input field
